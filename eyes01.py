@@ -37,9 +37,9 @@ def get_eye_state(json_path):
     else:
         return 'drowsy'
 
-# 이미지와 JSON 파일 경로
-image_dir = '/Users/kangeonkim/Downloads/do-not-sleep/졸음운전자/Training/[원천]bbox(통제환경)/001_G1'
-json_dir = '/Users/kangeonkim/Downloads/do-not-sleep/졸음운전자/Training/[라벨]bbox(통제환경)/001_G1'
+# 이미지와 JSON 파일 경로(copy path)
+image_dir = 'path'
+json_dir = 'path'
 
 X = []
 y = []
