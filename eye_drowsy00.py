@@ -13,11 +13,11 @@ def extract_eye_region(image_path, json_path):
     
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
-    # Reye와 Leye의 위치 정보 추출
+    # Reye와 Leye의 위치
     leye_pos = json_data['ObjectInfo']['BoundingBox']['Leye']['Position']
     reye_pos = json_data['ObjectInfo']['BoundingBox']['Reye']['Position']
 
-    # 눈 영역 잘라내기
+    # 눈 영역
     leye_region = image[leye_pos[1]:leye_pos[3], leye_pos[0]:leye_pos[2]]
     reye_region = image[reye_pos[1]:reye_pos[3], reye_pos[0]:reye_pos[2]]
     
@@ -38,14 +38,14 @@ def get_eye_state(json_path):
     else:
         return 'drowsy'
 
-#[라벨]bbox(통제환경) : 폴더경로
+# 폴더경로: [라벨]bbox(통제환경), [원천]bbox(통제환경)
 root_json_dir = 'folder path'
 root_image_dir = 'folder path'
 
 # 폴더 이름 목록 얻기
 folder_names = [name for name in os.listdir(root_json_dir) if os.path.isdir(os.path.join(root_json_dir, name))]
 
-# 각 폴더 속 데이터셋 학습
+# 각 폴더 속 데이터셋 불러오기
 for folder_name in folder_names:
     image_dir = os.path.join(root_image_dir, folder_name)
     json_dir = os.path.join(root_json_dir, folder_name)
