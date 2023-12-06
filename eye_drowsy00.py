@@ -39,13 +39,13 @@ def get_eye_state(json_path):
         return 'drowsy'
 
 #[라벨]bbox(통제환경) : 폴더경로
-root_json_dir = '/Users/kangeonkim/Downloads/do-not-sleep/졸음운전자/Training/[라벨]bbox(통제환경)'
-root_image_dir = '/Users/kangeonkim/Downloads/do-not-sleep/졸음운전자/Training/[원천]bbox(통제환경)'
+root_json_dir = 'folder path'
+root_image_dir = 'folder path'
 
 # 폴더 이름 목록 얻기
 folder_names = [name for name in os.listdir(root_json_dir) if os.path.isdir(os.path.join(root_json_dir, name))]
 
-# 각 폴더에 대한 학습 수행
+# 각 폴더 속 데이터셋 학습
 for folder_name in folder_names:
     image_dir = os.path.join(root_image_dir, folder_name)
     json_dir = os.path.join(root_json_dir, folder_name)
@@ -80,7 +80,7 @@ for folder_name in folder_names:
     # 데이터셋 분할
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-    # 모델 생성 및 컴파일
+    # CNN
     model = Sequential([
          Conv2D(32, (3, 3), activation='relu', input_shape=(24, 24, 1)),
     MaxPooling2D(2, 2),
@@ -92,19 +92,15 @@ for folder_name in folder_names:
     Dense(1, activation='sigmoid')
     ])
 
+    #컴파일
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-    # EarlyStopping과 ModelCheckpoint 설정
+    # EarlyStopping과 ModelCheckpoint
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, verbose=1)
     model_checkpoint = ModelCheckpoint('best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
 
     # 모델 학습
-    history = model.fit(
-    X_train, y_train, 
-    batch_size=32, 
-    epochs=50, 
-    validation_data=(X_test, y_test),
-    callbacks=[early_stopping, model_checkpoint]
-)
+    history = model.fit(X_train, y_train, batch_size=32, epochs=50, validation_data=(X_test, y_test), callbacks=[early_stopping, model_checkpoint])
+    
     #모델 저장
     model.save('final_drowsy_model.h5')
