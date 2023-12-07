@@ -61,7 +61,11 @@ for folder_name in folder_names:
             
             leye_img, reye_img, leye_pos, reye_pos = extract_eye_region(image_path, json_path)
             eye_state = get_eye_state(json_path)
-            label = 1 if eye_state == 'fine' else 0
+
+            if eye_state == 'fine' :
+              label = 1 
+            else :
+              label = 0
 
             if leye_img is not None and reye_img is not None:
                 if 0 not in leye_pos and leye_img.size > 0:
