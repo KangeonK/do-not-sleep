@@ -33,8 +33,8 @@ def get_eye_state(json_path):
     leye_opened = json_data['ObjectInfo']['BoundingBox']['Leye']['Opened']
     reye_opened = json_data['ObjectInfo']['BoundingBox']['Reye']['Opened']
 
-    # 두 눈이 모두 열려있으면 'fine', 하나라도 닫혀있으면 'drowsy'
-    if leye_opened and reye_opened:
+    # 두 눈 중 하나가 열려있으면 'fine', 하나라도 닫혀있으면 'drowsy'
+    if leye_opened or reye_opened:
         return 'fine'
     else:
         return 'drowsy'
