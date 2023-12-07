@@ -105,7 +105,10 @@ for folder_name in folder_names:
     model_checkpoint = ModelCheckpoint('best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
 
     # 모델 학습
-    history = model.fit(X_train, y_train, batch_size=32, epochs=50, validation_data=(X_test, y_test), callbacks=[early_stopping, model_checkpoint])
+    history = model.fit(
+        X_train, y_train,batch_size=32,
+        epochs=50,validation_data=(X_test, y_test),
+        callbacks=[early_stopping, model_checkpoint])
     
-    #모델 저장
+    # 모델 저장
     model.save('final_drowsy_model.h5')
