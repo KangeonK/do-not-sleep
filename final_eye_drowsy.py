@@ -12,7 +12,7 @@ def extract_eye_region(image_path, json_path):
     with open(json_path, 'r') as file:
         json_data = json.load(file)
 
-    # GRAY 이미지 변환
+    # GRAY 이미지 read
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
     # Reye와 Leye의 위치
